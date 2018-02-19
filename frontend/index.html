@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    
+    <title>Is It Toxic?</title>
+
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+        .progress-bar {
+            color: black;
+            font-weight: bold;
+        }
+        .progress {
+            height: 1.5rem;
+            margin-bottom: 15px;
+        }
+        .footer {
+            background-color: rgb(30, 30, 30);
+            width: 100%;
+            color: rgb(230, 230, 230);
+            padding: 20px;      
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Is It Toxic?</h1>
+        <p>Check if a text is rude, contains insults, racism, etc...</p>
+
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Input text..." aria-label="Input text" id="query" aria-describedby="input">
+            <div class="input-group-append">
+                <button class="btn btn-danger" type="button" id="search" type="submit">Check</button>
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="results">
+        </div>
+
+        <div class="footer fixed-bottom">
+            <div class="row">
+                <div class="col">
+                    developed by
+                    <a href="https://dimkouv.com" target="_blank" class="text-danger">dimkouv</a> with
+                    <span class="fa fa-heart text-danger"></span>
+                </div>
+    
+                <div class="col text-right">
+                    <a href="https://github.com/dimkouv/isitoxic" class="text-warning" target="_blank">
+                        <span class="fab fa-github"></span> Source Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    
+    <script>
+        function generatePredictions () {
+            let query = $("#query")[0].value
+            $('.progress').remove()
+            $('.result-title').remove()
+            console.log('http://localhost:5000/predict/' + query)
+            $.ajax({
+                url: 'http://localhost:5000/predict/' + query,
+                success: function (data) {
+                    for (var key in data) {
+                        let val = parseInt(data[key] * 100, 10)
+                        console.log(val)
+                        $('.results').append(
+                            '<div class="result-title">' + key.replace('_', ' ') + '</div>' +
+                            '<div class="progress">' +
+                            '<div class="progress-bar bg-warning" role="progressbar" ' +
+                            'style="width: ' + val + '%;" aria-valuenow="' + val + '" ' +
+                            'aria-valuemin="0" aria-valuemax="100">' +
+                            val + '%' +
+                            '</div></div>'
+                        )
+                    }
+                },
+                error: function (request, status, error) {
+                    console.log('error fetching data', error)
+                }
+            })
+        }
+
+        $("#search").on('click', function () {
+            generatePredictions()
+        })
+
+        $(document).keypress(function (e) {
+            if (e.which == 13) {
+                generatePredictions()
+            }
+        });
+    </script>
+</body>
+</html>
