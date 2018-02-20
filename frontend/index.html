@@ -76,9 +76,8 @@
             let query = $("#query")[0].value
             $('.progress').remove()
             $('.result-title').remove()
-            console.log('http://localhost:5000/predict/' + query)
             $.ajax({
-                url: 'http://localhost:5000/predict/' + query,
+                url: 'https://api.isitoxic.tk/predict/' + query,
                 success: function (data) {
                     for (var key in data) {
                         let val = parseInt(data[key] * 100, 10)

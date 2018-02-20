@@ -1,5 +1,7 @@
 # isitoxic
-Check if a text is toxic. Toxic text contains insults, bruises, etc...
+Check if a text is toxic. Toxic text contains insults, bruises, etc...  
+DEMO: <a href="https://isitoxic.tk">isitoxic.tk</a>
+
 
 ## Description
 `isitoxic.ipynb` contains my entry for
