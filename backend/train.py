@@ -1,9 +1,10 @@
-#!/usr/bin/python3
 '''
 What this script does:
 1. Reads train data
 2. Creates and trains classifiers
 3. Stores classifiers for usage from other apps
+
+For reference of how things work check `isitoxic.ipynb`
 '''
 import collections
 import pandas as pd
@@ -45,7 +46,6 @@ texts = [texts[i] for i in tmp]
 for c in columns:
     values[c] = [values[c][i] for i in tmp]
 
-
 # remove texts with length lower than 6
 tmp = [i for i, text in enumerate(texts) if len(text) >= 5]
 texts = [texts[i] for i in tmp]
@@ -59,7 +59,6 @@ vectorizer = TfidfVectorizer(
     sublinear_tf=True
 )
 vectors = vectorizer.fit_transform(texts)
-
 
 classifier = SGDClassifier(
     loss="log",
@@ -88,7 +87,6 @@ for c in columns:
     filename = "./data/%s_classifier.sav" % (c)
     with open(filename, "wb") as f:
         pickle.dump(classifier, f)
-
 
 # save vectorizer
 with open("./data/vectorizer.sav", "wb") as f:

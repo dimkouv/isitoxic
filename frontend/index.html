@@ -124,7 +124,7 @@
             $('.progress').remove()
             $('.result-title').remove()
             $.ajax({
-                url: 'https://api.isitoxic.tk/predict/' + query,
+                url: 'http://localhost:5000/predict/' + query,
                 success: function (data) {
                     for (var key in data) {
                         let val = parseInt(data[key] * 100, 10)

@@ -26,19 +26,22 @@ pip install -r ./backend/requirements.txt
 
 Train the classifiers
 ```bash
-python3 ./backend/train.py
+cd backend
+python3 train.py
 ```
 
 Start backend
 ```bash
-FLASK_APP=./backend/api.py flask run
+cd backend
+python3 api.py
 ```
 
 Test using curl
 ```bash
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://localhost:5000/predict/i%20am%20going%20to%20kill%20you
+# tested text is 'i am going to kill you'
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET 'http://localhost:5000/predict/i%20am%20going%20to%20kill%20you'
 ```
-The tested comment above should be marked as threat
+After running the command above you should get the following results, or at least results that mark the given string as a threat.
 ```json
 {
   "identity_hate": 0.02882502394102831,
@@ -50,8 +53,7 @@ The tested comment above should be marked as threat
 }
 ```
 
-Test using frontend
+Test using frontend (api should be running)
 ```bash
 firefox ./frontend/index.html
 ```
-

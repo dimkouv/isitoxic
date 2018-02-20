@@ -1,8 +1,3 @@
-#!/usr/bin/python3
-'''
-This script has some utilities used from
-both train.py and test.py
-'''
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.stem.porter import PorterStemmer
 from nltk.tokenize import word_tokenize
