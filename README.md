@@ -1,6 +1,5 @@
 # isitoxic
 Check if a text is toxic. Toxic text contains insults, bruises, etc...  
-DEMO: <a href="https://isitoxic.tk">isitoxic.tk</a>
 
 
 ## Description
@@ -36,7 +35,7 @@ cd backend
 python3 api.py
 ```
 
-Test using curl
+Test using curl or by opening `frontend/index.html`
 ```bash
 # tested text is 'i am going to kill you'
 curl -i -H "Accept: application/json" -H "Content-Type: application/json" -X GET 'http://localhost:5000/predict/i%20am%20going%20to%20kill%20you'
@@ -51,9 +50,4 @@ After running the command above you should get the following results, or at leas
   "threat": 0.9999940122445997,
   "toxic": 0.9976743329838031
 }
-```
-
-Test using frontend (api should be running)
-```bash
-firefox ./frontend/index.html
 ```
